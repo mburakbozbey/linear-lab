@@ -1,9 +1,4 @@
-# Mastering the Essentials: Dive into Machine Learning and Numerical Optimization!
-
-<p align="center">
- <a href="https://github.com/mburakbozbey/ml-optimization-toolkit">Visit our GitHub Repository</a><br>
-</p>
-
+# Mastering the Essentials: Dive into Machine Learning and Numerical Optimization
 **Note: Collaboratively developed with the help of ChatGPT-4.**
 
 ## Table of Contents
