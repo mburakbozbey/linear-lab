@@ -16,43 +16,43 @@
 - [License](#license) 📄
 
 ## Machine Learning Fundamentals 📘
-![ML Fundamentals](images/ml-fundamentals.jpg)
+![ML Fundamentals](images/ml-fundamentals.png)
 Explore the building blocks of machine learning, covering various learning types and evaluation techniques.
 
 ## Supervised Learning Techniques 🤖
-![Supervised Learning](images/supervised-learning.jpg)
+![Supervised Learning](images/supervised-learning.png)
 Delve into linear models and tree-based methods, understanding their theory and application.
 
 ## Unsupervised Learning and Data Mining 🔍
-![Unsupervised Learning](images/unsupervised-learning.jpg)
+![Unsupervised Learning](images/unsupervised-learning.png)
 Discover clustering, dimensionality reduction, and other unsupervised learning techniques.
 
 ## Deep Learning 🧠
-![Deep Learning](images/deep-learning.jpg)
+![Deep Learning](images/deep-learning.png)
 Uncover the intricacies of neural networks and advanced deep learning architectures.
 
 ## Specialized Machine Learning Domains 🌐
-![Specialized Domains](images/specialized-domains.jpg)
+![Specialized Domains](images/specialized-domains.png)
 Gain insights into NLP, time series analysis, and reinforcement learning.
 
 ## Numerical Optimization Techniques 📈
-![Numerical Optimization](images/optimization.jpg)
+![Numerical Optimization](images/optimization.png)
 Understand various optimization algorithms used in machine learning, including gradient descent and its variants.
 
 ## Ethics and Privacy in AI ⚖️
-![Ethics in AI](images/ethics.jpg)
+![Ethics in AI](images/ethics.png)
 Explore the ethical considerations and privacy concerns in AI, including bias mitigation and data security.
 
 ## Practical Machine Learning Applications 🛠️
-![Practical Applications](images/practical-applications.jpg)
+![Practical Applications](images/practical-applications.png)
 Learn about model deployment strategies, monitoring techniques, and evaluation methods.
 
 ## Project and Process Management in ML 📋
-![Project Management](images/project-management.jpg)
+![Project Management](images/project-management.png)
 Dive into Agile methodologies, version control, and best practices for ML project management.
 
 ## Professional Development and Resources 💼
-![Professional Development](images/professional-development.jpg)
+![Professional Development](images/professional-development.png)
 Access resources for continuous learning and explore various career paths in data science and machine learning.
 
 ## Usage 📚
