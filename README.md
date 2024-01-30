@@ -1,5 +1,5 @@
 # Mastering the Essentials: Dive into Machine Learning and Numerical Optimization 🚀
-**Collaboratively developed with the help of ChatGPT-4.**
+**Collaboratively developed with the help of CodeLlama & ChatGPT-4.**
 
 ## Table of Contents [WIP]
 - [I. Machine Learning Fundamentals](#i-machine-learning-fundamentals) 📘
