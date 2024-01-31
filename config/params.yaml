@@ -1,0 +1,19 @@
+# Model Parameters
+model:
+  learning_rate: 0.01
+  num_iterations: 1000
+
+# Feature Scaling Configuration
+scaler:
+  method: StandardScaler
+  with_bias: true
+
+# Data Split Configuration
+data_split:
+  test_size: 0.2
+  random_state: 42
+
+# Evaluation Metrics Configuration
+metrics:
+  - mean_squared_error
+  - r2_score

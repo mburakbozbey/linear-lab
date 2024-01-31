@@ -5,4 +5,5 @@ pandas>=1.2.0
 scipy>=1.6.0
 matplotlib>=3.3.0
 seaborn>=0.11.0
-pytest>=6.0.0
+pytest>=6.0.0w
+torch>=2.2.0

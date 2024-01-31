@@ -1,17 +1,19 @@
 import time
 import numpy as np
+import plotly.express as px
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
-from bokeh.plotting import figure, show
-from bokeh.layouts import gridplot
-from bokeh.models import ColumnDataSource
+from utils.preprocess import preprocess_data
+from config.config import Config  # Import the configuration
 
-# Constants
-LEARNING_RATE = 0.01
-NUM_ITERATIONS = 1000
-TEST_SIZE = 0.2
+# Constants from config.py
+config = Config()
+LEARNING_RATE = config.LEARNING_RATE
+NUM_ITERATIONS = config.NUM_ITERATIONS
+TEST_SIZE = config.TEST_SIZE
+
 
 # Updated LinearRegression class with bias term
 class LinearRegressionWithBias:
@@ -36,7 +38,7 @@ class LinearRegressionWithBias:
         return np.dot(X, self.weights)
 
 def plot_data_and_regression(X, y, predictions, model):
-    """Plot data and regression line using Bokeh.
+    """Plot data and regression line using Plotly.
 
     Parameters:
         X (ndarray): Input features.
@@ -44,28 +46,38 @@ def plot_data_and_regression(X, y, predictions, model):
         predictions (ndarray): Predicted values.
         model (LinearRegressionWithBias): Trained model for accessing cost history.
     """
-    source_actual = ColumnDataSource(data=dict(x=X[:, 1], y=y))
-    source_predicted = ColumnDataSource(data=dict(x=X[:, 1], y=predictions))
+    import plotly.graph_objects as go
 
-    p = figure(title="Linear Regression", x_axis_label="X", y_axis_label="y")
+    fig = go.Figure()
 
-    p.scatter("x", "y", source=source_actual, size=8, color="black", legend_label="Actual Data")
-    p.line("x", "y", source=source_predicted, line_width=2, line_color="navy", legend_label="Linear Regression Line")
+    # Add actual data points
+    fig.add_trace(go.Scatter(x=X[:, 1], y=y, mode='markers', name='Actual Data'))
 
-    p.legend.location = "top_left"
-    p.legend.click_policy = "hide"
+    # Sort the data by X[:, 1] for plotting the regression line
+    sorted_indices = X[:, 1].argsort()
+    sorted_x = X[sorted_indices]
+    sorted_predictions = predictions[sorted_indices]
 
-    cost_history_plot = figure(title="Cost Function Over Time", x_axis_label="Iterations", y_axis_label="Cost")
-    cost_history_plot.line(range(len(model.cost_history)), model.cost_history, line_width=2, line_color="green")
+    # Add regression line
+    fig.add_trace(go.Scatter(x=sorted_x[:, 1], y=sorted_predictions, mode='lines', name='Linear Regression Line'))
 
-    show(gridplot([[p], [cost_history_plot]]))
+    fig.update_layout(title='Linear Regression',
+                      xaxis_title='X',
+                      yaxis_title='y',
+                      legend=dict(x=0, y=1, bordercolor="Black", borderwidth=2))
+
+    fig.show()
+
 
 def run_linear_regression_california():
-    # Load and preprocess the California housing dataset
+    # Load the California housing dataset
     california_housing = fetch_california_housing()
     X, y = california_housing.data, california_housing.target
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+
+    # Preprocess the data using the imported function
+    X_scaled = preprocess_data(X)
+
+    # Add bias term
     X_with_bias = np.c_[np.ones((X_scaled.shape[0], 1)), X_scaled]
 
     # Split data into training and testing sets

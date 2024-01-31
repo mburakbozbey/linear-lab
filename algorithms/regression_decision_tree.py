@@ -97,7 +97,7 @@ def main():
     # Split the data into a training set and a testing set (you can use a more advanced method here)
     random.seed(42)
     random.shuffle(X)
-    random.seed(42)
+    randomw.seed(42)
     random.shuffle(y)
     split_ratio = 0.8
     split_index = int(len(X) * split_ratio)
