@@ -1,94 +1,78 @@
-# Mastering the Essentials: Dive into Machine Learning and Numerical Optimization 🚀
-**Collaboratively developed with the help of CodeLlama & ChatGPT-4.**
+# Practical Mastery in Machine Learning: Your Essential Toolkit 🌟
+**Welcome to your go-to resource for mastering practical machine learning applications**. Dive into an extensive toolkit designed for hands-on learning and implementation in machine learning. This repository serves as a comprehensive guide, offering not just theoretical insights but also practical use cases and applications, catering to both beginners and seasoned practitioners in the field.
 
-## Table of Contents [WIP]
-- [I. Machine Learning Fundamentals](#i-machine-learning-fundamentals) 📘
-- [II. Supervised Learning Techniques](#ii-supervised-learning-techniques) 🤖
-- [III. Unsupervised Learning and Data Mining](#iii-unsupervised-learning-and-data-mining) 🔍
-- [IV. Deep Learning](#iv-deep-learning) 🧠
-- [V. Specialized Machine Learning Domains](#v-specialized-machine-learning-domains) 🌐
-- [VI. Numerical Optimization Techniques](#vi-numerical-optimization-techniques) 📈
-- [VII. Ethics and Privacy in AI](#vii-ethics-and-privacy-in-ai) ⚖️
-- [VIII. Practical Machine Learning Applications](#viii-practical-machine-learning-applications) 🛠️
-- [IX. Project and Process Management in ML](#ix-project-and-process-management-in-ml) 📋
-- [X. Professional Development and Resources](#x-professional-development-and-resources) 💼
-- [XI. Usage](#xi-usage) 📚
-- [XII. License](#xii-license) 📄
+**Collaboratively developed with the help of CodeLlama & ChatGPT-4 as an experimentation.**
 
-## I. Machine Learning Fundamentals 📘
-<p align="center">
-  <img src="images/ml-fundamentals.png" width="150" alt="ML Fundamentals">
-</p>
-Explore the building blocks of machine learning, covering various learning types and evaluation techniques.
+## Table of Contents
+- [I. Core Machine Learning Algorithms](#i-core-machine-learning-algorithms) 🤖
+- [II. Advanced Machine Learning Techniques](#ii-advanced-machine-learning-techniques) 🧠
+- [III. Shared Utilities and Functions](#iii-shared-utilities-and-functions) 🔧
+- [IV. Testing and Continuous Integration](#iv-testing-and-continuous-integration) 🚀
+- [V. Usage](#v-usage) 📚
+- [VI. Repository Structure](#vi-repository-structure) 📂
+- [VII. Professional Development and Resources](#vii-professional-development-and-resources) 💼
+- [VIII. Ethics and Privacy in AI](#viii-ethics-and-privacy-in-ai) ⚖️
+- [IX. License](#ix-license) 📄
 
-## II. Supervised Learning Techniques 🤖
-<p align="center">
-  <img src="images/supervised-learning.png" width="150" alt="Supervised Learning">
-</p>
-Delve into linear models and tree-based methods, understanding their theory and application.
+## I. Core Machine Learning Algorithms 🤖
+Explore essential ML algorithms such as logistic regression, linear regression, simple decision trees, gradient boosted trees, and an encoder-decoder neural network. Each algorithm is implemented with detailed explanations and use cases.
 
-## III. Unsupervised Learning and Data Mining 🔍
-<p align="center">
-  <img src="images/unsupervised-learning.png" width="150" alt="Unsupervised Learning">
-</p>
-Discover clustering, dimensionality reduction, and other unsupervised learning techniques.
+## II. Advanced Machine Learning Techniques 🧠
+Delve into more sophisticated ML techniques, showcasing our implementation of an encoder-decoder neural network, and uncover the power of deep learning in solving complex problems.
 
-## IV. Deep Learning 🧠
-<p align="center">
-  <img src="images/deep-learning.png" width="150" alt="Deep Learning">
-</p>
-Uncover the intricacies of neural networks and advanced deep learning architectures.
+## III. Shared Utilities and Functions 🔧
+Utilize our shared utilities for efficient data handling, including loading, preprocessing, train-test splitting, and visualization, enhancing code reusability and consistency.
 
-## V. Specialized Machine Learning Domains 🌐
-<p align="center">
-  <img src="images/specialized-domains.png" width="150" alt="Specialized Domains">
-</p>
-Gain insights into NLP, time series analysis, and reinforcement learning.
+## IV. Testing and Continuous Integration 🚀
+Maintain high-quality code with pytest for comprehensive testing and GitHub Actions for automated CI/CD, ensuring robust and reliable codebase.
 
-## VI. Numerical Optimization Techniques 📈
-<p align="center">
-  <img src="images/optimization.png" width="150" alt="Numerical Optimization">
-</p>
-Understand various optimization algorithms used in machine learning, including gradient descent and its variants.
+## V. Usage 📚
+### Setting Up the Environment
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/ml-toolkit.git
+   cd ml-toolkit
+   ```
 
-## VII. Ethics and Privacy in AI ⚖️
-<p align="center">
-  <img src="images/ethics.png" width="150" alt="Ethics in AI">
-</p>
-Explore the ethical considerations and privacy concerns in AI, including bias mitigation and data security.
+2. **Create a Conda Environment**:
+   If you haven't already installed Conda, download and install [Anaconda](https://www.anaconda.com/products/individual) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html). Then, create a new Conda environment for this project:
+   ```bash
+   conda create --name ml_toolkit_env python=3.8
+   ```
+   This command creates a new environment named ml_toolkit_env with Python 3.8, which is recommended for this project. Activate your new environment with:
+   ```bash
+   conda activate ml_toolkit_env
+   ```
 
-## VIII. Practical Machine Learning Applications 🛠️
-<p align="center">
-  <img src="images/practical-applications.png" width="150" alt="Practical Applications">
-</p>
-Learn about model deployment strategies, monitoring techniques, and evaluation methods.
+3. **Install Dependencies**:
+   Inside the activated Conda environment, install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   This command will install all necessary Python packages as specified in the requirements.txt file.
 
-## IX. Project and Process Management in ML 📋
-<p align="center">
-  <img src="images/project-management.png" width="150" alt="Project Management">
-</p>
-Dive into Agile methodologies, version control, and best practices for ML project management.
+## VI. Repository Structure 📂
+The repository is structured for ease of navigation and scalability:
+- `data/`: Contains datasets and scripts for data preprocessing.
+- `models/`: Implementations of the core machine learning algorithms.
+- `utilities/`: Utility functions for common tasks like data loading and visualization.
+- `notebooks/`: Jupyter notebooks for demonstrations and experiments.
+- `scripts/`: Scripts for model training and evaluation.
+- `tests/`: Test cases for ensuring the reliability of the utilities and models.
+- `images/`: Visual assets used in documentation.
 
-## X. Professional Development and Resources 💼
-<p align="center">
-  <img src="images/professional-development.png" width="150" alt="Professional Development">
-</p>
-Access resources for continuous learning and explore various career paths in data science and machine learning.
+## VII. Professional Development and Resources 💼
+Enhance your machine learning skills and career with our curated list of resources, including books, online courses, and community forums.
 
-## XI. Usage 📚
-This toolkit is a comprehensive resource for applying machine learning algorithms and optimization techniques, suitable for a wide range of users from students to practitioners.
+## VIII. Ethics and Privacy in AI ⚖️
+Explore ethical considerations and privacy concerns in AI development, including topics like bias mitigation and responsible AI practices.
 
-## XII. License 📄
-This project is under the MIT License, allowing free use, modification, and distribution under the license terms.
-[View License](https://github.com/mburakbozbey/ml-optimization-toolkit/blob/main/LICENSE)
+## IX. License 📄
+This project is licensed under the MIT License. Feel free to use, modify, and distribute it under the license terms.
 
-## XII. Repository Structure 📂
-This repository is organized into several folders to ensure a seamless learning and development experience:
+## X. References 📑
 
-- `data/`: Contains datasets and data-related scripts.
-- `models/`: Pre-built models and configuration files for quick setup.
-- `utilities/`: Common utilities for tasks like data preprocessing.
-- `notebooks/`: Jupyter notebooks for experiments and visualizations.
-- `scripts/`: Automation and utility scripts.
-- `tests/`: Test cases for custom utility functions.
-- `images/`: Images used in the README and other documentation.
+- [Improving Language Understanding by Generative Pre-Training (Radford et al. 2018)](https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf)
+- [Attention is All You Need (Vaswani et al. 2017)](https://arxiv.org/abs/1706.03762)
+- [GPT Guide by Andrej Karpathy](https://m.youtube.com/watch?v=kCc8FmEb1nY)
+- [GPT-from-Scratch](https://github.com/LaurenceLungo/GPT-from-Scratch)
