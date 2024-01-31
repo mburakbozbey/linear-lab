@@ -81,3 +81,14 @@ This toolkit is a comprehensive resource for applying machine learning algorithm
 ## XII. License 📄
 This project is under the MIT License, allowing free use, modification, and distribution under the license terms.
 [View License](https://github.com/mburakbozbey/ml-optimization-toolkit/blob/main/LICENSE)
+
+## XII. Repository Structure 📂
+This repository is organized into several folders to ensure a seamless learning and development experience:
+
+- `data/`: Contains datasets and data-related scripts.
+- `models/`: Pre-built models and configuration files for quick setup.
+- `utilities/`: Common utilities for tasks like data preprocessing.
+- `notebooks/`: Jupyter notebooks for experiments and visualizations.
+- `scripts/`: Automation and utility scripts.
+- `tests/`: Test cases for custom utility functions.
+- `images/`: Images used in the README and other documentation.
