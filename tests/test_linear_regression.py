@@ -1,4 +1,4 @@
-from algorithms.linear_regression import LinearRegressionWithBias, plot_data_and_regression
+from algorithms.linear_regression import LinearRegression, plot_data_and_regression
 from utils.preprocess import preprocess_data
 import pytest
 import numpy as np
@@ -37,7 +37,7 @@ def train_test_data(features_with_bias, california_housing_dataset):
 @pytest.fixture
 def trained_model(train_test_data):
     X_train, X_test, y_train, y_test = train_test_data
-    model = LinearRegressionWithBias(learning_rate=LEARNING_RATE, num_iterations=NUM_ITERATIONS)
+    model = LinearRegression(learning_rate=LEARNING_RATE, num_iterations=NUM_ITERATIONS)
     model.fit(X_train, y_train)
     return model
 
@@ -70,7 +70,3 @@ def test_plot_data_and_regression(trained_model, train_test_data):
                       legend=dict(x=0, y=1, bordercolor="Black", borderwidth=2))
 
     fig.show()
-
-def test_run_linear_regression_california(california_housing_dataset):
-    # Define or import run_linear_regression_california() and test it here
-    pass

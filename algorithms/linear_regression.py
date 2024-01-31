@@ -16,7 +16,7 @@ TEST_SIZE = config.TEST_SIZE
 
 
 # Updated LinearRegression class with bias term
-class LinearRegressionWithBias:
+class LinearRegression:
     def __init__(self, learning_rate=0.01, num_iterations=1000):
         self.learning_rate = learning_rate
         self.num_iterations = num_iterations
@@ -84,7 +84,7 @@ def run_linear_regression_california():
     X_train, X_test, y_train, y_test = train_test_split(X_with_bias, y, test_size=TEST_SIZE, random_state=42)
 
     # Create and train the linear regression model with bias
-    model = LinearRegressionWithBias(learning_rate=LEARNING_RATE, num_iterations=NUM_ITERATIONS)
+    model = LinearRegression(learning_rate=LEARNING_RATE, num_iterations=NUM_ITERATIONS)
     model.fit(X_train, y_train)
 
     # Make predictions on the test set
