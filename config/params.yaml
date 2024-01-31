@@ -1,3 +1,19 @@
+# linear_regression_config.yaml
+data:
+  path: 'data/dataset.csv'
+  preprocessing:
+    fill_missing_values: true
+    categorical_encoding: 'one_hot'
+    normalization: true
+    train_test_split_ratio: 0.8
+
+model:
+  params:
+    learning_rate: 0.01
+    regularization: 'L2'
+    regularization_rate: 0.1
+  save_path: 'models/linear_regressor.pkl'
+
 # Model Parameters
 model:
   learning_rate: 0.01

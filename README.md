@@ -5,14 +5,14 @@
 
 # Simplicity on Steroids: The Overengineered Linear Regressor's Guide 🚀
 
-	Welcome to a comprehensive toolkit that elevates linear regression to new heights of sophistication. This repository offers a meticulously crafted platform, blending fundamental linear regression principles with advanced engineering techniques.
+**Welcome to a comprehensive toolkit that elevates linear regression to new heights of sophistication.** This repository offers a meticulously crafted platform, blending fundamental linear regression principles with advanced engineering techniques.
 
-	Collaboratively developed with contributions from CodeLlama & ChatGPT-4, this toolkit stands as a testament to the finesse achievable in the realm of machine learning.
+Collaboratively developed with contributions from **CodeLlama & ChatGPT-4**, this toolkit stands as a testament to the finesse achievable in the realm of machine learning.
 
-	## Table of Contents
-	- [I. Introduction to Linear Regression](#i-introduction-to-linear-regression) 📘
-	- [II. Advanced Engineering Features](#ii-advanced-engineering-features) 🔩
-	- [III. Docker Integration and Continuous Integration/Continuous Deployment (CI/CD)](#iii-docker-integration-and-continuous-integrationcontinuous-deployment-cicd) 🐳
+## Table of Contents
+- [I. Introduction to Linear Regression](#i-introduction-to-linear-regression) 📘
+- [II. Advanced Engineering Features](#ii-advanced-engineering-features) 🔩
+- [III. Docker Integration and Continuous Integration/Continuous Deployment (CI/CD)](#iii-docker-integration-and-continuous-integrationcontinuous-deployment-cicd) 🐳
 - [IV. Data Visualization and Experiment Logging](#iv-data-visualization-and-experiment-logging) 📊
 - [V. Comprehensive Repository Structure](#v-comprehensive-repository-structure) 📂
 - [VI. Getting Started](#vi-getting-started) 🚀
