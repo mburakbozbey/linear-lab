@@ -5,7 +5,12 @@
 
 # Simplicity on Steroids: The Overengineered Linear Regressor's Guide 🚀
 
-**Welcome to a comprehensive toolkit that elevates linear regression to new heights of sophistication.** This repository offers a meticulously crafted platform, blending fundamental linear regression principles with advanced engineering techniques.
+<div align="center">
+  <img src="images/linearlab.png" alt="Linear-Lab" width="300" height="300"/>
+</div>
+
+
+**Welcome to a comprehensive toolkit that elevates linear regression to new heights of sophistication.** This repository offers a meticulously crafted platform, blending fundamental linear regression principles with advanced MLOps techniques.
 
 Collaboratively developed with contributions from **CodeLlama & ChatGPT-4**, this toolkit stands as a testament to the finesse achievable in the realm of machine learning.
 
