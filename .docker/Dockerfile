@@ -14,4 +14,4 @@ RUN conda install -c conda-forge --file requirements.txt
 RUN pip install pytest
 
 # Run the tests when the container is started
-CMD ["pytest", "tests/"]
+CMD ["pytest", "tests/"]a

@@ -24,7 +24,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-buildx-
 
-    - name: Build and push Docker image
+    - name: Build the Docker image
       uses: docker/build-push-action@v3
       with:
         context: .
