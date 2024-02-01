@@ -1,4 +1,3 @@
-import os
 import time
 
 import numpy as np
@@ -6,9 +5,9 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 
-from algorithms.linear_regression import LinearRegression, plot_data_and_regression
+from algorithms.linear_regression import LinearRegression
 from config.config import Config
-from utils.preprocess import preprocess_data
+from utils.preprocess import plot_data_and_regression, preprocess_data
 
 # Constants from config.py
 config = Config()
