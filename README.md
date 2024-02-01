@@ -52,6 +52,11 @@ Our repository is thoughtfully organized to enhance user experience:
    ```
    This command will install all necessary Python packages as specified in the requirements.txt file.
 
+4. **Run the Linear Regression Model**:
+   ```bash
+   python main.py 
+   ```
+   
 ## License 📄
 This project is open-sourced under the MIT License. Feel free to use, modify, and distribute as per the license terms.
 
