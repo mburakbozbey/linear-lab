@@ -13,7 +13,7 @@
 
 **Welcome to a comprehensive toolkit (🏗️🔧 *under construction* 👷‍♂️🧰 ) that elevates linear regression to new heights of sophistication.** This repository offers a meticulously crafted platform, blending a fundamental algorithm with advanced MLOps techniques.
 
-Collaboratively developed with contributions from **CodeLlama & ChatGPT-4**, this toolkit stands as a testament to the finesse achievable in the realm of machine learning.
+Collaboratively developed with contributions from **Codeium,CodeLlama & ChatGPT-4**, this toolkit stands as a testament to the finesse achievable in the realm of machine learning.
 
 ## Repository Structure 📂
 Our repository is thoughtfully organized to enhance user experience:
@@ -31,8 +31,8 @@ Our repository is thoughtfully organized to enhance user experience:
 ### Setting Up the Environment
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/mburakbozbey/ml-optimization-toolkit.git
-   cd ml-toolkit
+   git clone https://github.com/mburakbozbey/linear-lab.git
+   cd linear-lab
    ```
 
 2. **Create a Conda Environment**:

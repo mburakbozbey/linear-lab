@@ -8,6 +8,16 @@ class TreeNode:
     def __init__(
         self, data_class=None, split_feature=None, threshold=None, left=None, right=None
     ):
+        """
+        Initializes a node in a decision tree.
+
+        Parameters:
+            data_class (optional): The class label if it's a leaf node
+            split_feature (optional): The feature used for splitting
+            threshold (optional): Threshold value for splitting
+            left (optional): Left subtree
+            right (optional): Right subtree
+        """
         self.data_class = data_class  # The class label if it's a leaf node
         self.split_feature = split_feature  # The feature used for splitting
         self.threshold = threshold  # Threshold value for splitting
@@ -18,6 +28,15 @@ class TreeNode:
 # Define the DecisionTreeClassifier class
 class DecisionTreeClassifier:
     def __init__(self, max_depth=None):
+        """
+        Initializes the class with an optional maximum depth parameter.
+
+        Parameters:
+            max_depth (int, optional): Maximum depth of the tree
+
+        Returns:
+            None
+        """
         self.max_depth = max_depth  # Maximum depth of the tree
         self.root = None  # The root node of the decision tree
 
@@ -73,6 +92,16 @@ class DecisionTreeClassifier:
         )
 
     def calculate_gini(self, left_labels, right_labels):
+        """
+        Calculate the Gini impurity for a split given the labels on the left and right nodes.
+
+        Parameters:
+            left_labels (list): The labels on the left node.
+            right_labels (list): The labels on the right node.
+
+        Returns:
+            float: The Gini impurity for the split.
+        """
         total_count = len(left_labels) + len(right_labels)
         gini_left = 1.0 - sum(
             [(left_labels.count(c) / len(left_labels)) ** 2 for c in set(left_labels)]
@@ -89,12 +118,31 @@ class DecisionTreeClassifier:
         return gini
 
     def predict(self, X):
+        """
+        Predicts the output for each sample in the input X using the decision tree model.
+
+        Parameters:
+            X (array-like): The input samples.
+
+        Returns:
+            list: The predictions for each input sample.
+        """
         predictions = []
         for sample in X:
             predictions.append(self.predict_single(sample, self.root))
         return predictions
 
     def predict_single(self, sample, node):
+        """
+        Predicts the class for a single sample using the decision tree node.
+
+        Args:
+            sample: The input sample to predict the class for.
+            node: The decision tree node to start the prediction from.
+
+        Returns:
+            The predicted class for the input sample.
+        """
         if node.data_class is not None:
             return node.data_class
         if sample[node.split_feature] <= node.threshold:
@@ -105,6 +153,15 @@ class DecisionTreeClassifier:
 
 # Load data from the CSV file in the "data" folder
 def load_data_from_csv(file_path):
+    """
+    Load data from a CSV file.
+
+    Args:
+        file_path (str): The path to the CSV file.
+
+    Returns:
+        tuple: A tuple containing two lists: X (list of lists) and y (list).
+    """
     X = []
     y = []
     with open(file_path, "r") as file:
@@ -117,6 +174,10 @@ def load_data_from_csv(file_path):
 
 # Define the main function
 def main():
+    """
+    A function to load a dataset from a CSV file, split the data into training and testing sets,
+    create and train a decision tree classifier, make predictions, and calculate accuracy.
+    """
     # Load the dataset
     data_folder = "data"
     data_file = "dataset.csv"
