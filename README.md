@@ -2,6 +2,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/mburakbozbey/ml-optimization-toolkit.svg)](https://github.com/mburakbozbey/ml-toolkit/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/mburakbozbey/ml-optimization-toolkit.svg)](https://github.com/mburakbozbey/ml-toolkit/network)
 [![GitHub last commit](https://img.shields.io/github/last-commit/mburakbozbey/ml-optimization-toolkit.svg)](https://github.com/mburakbozbey/ml-toolkit/commits/master)
+[![Tests](https://github.com/mburakbozbey/linear-lab/actions/workflows/python-app.yml/badge.svg)](https://github.com/mburakbozbey/linear-lab/actions/workflows/python-app.yml)
+[![Docker](https://github.com/mburakbozbey/linear-lab/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mburakbozbey/linear-lab/actions/workflows/docker-image.yml)
 
 # Simplicity on Steroids: The Overengineered Linear Regressor's Guide 🚀
 
@@ -9,8 +11,7 @@
   <img src="images/linearlab.png" alt="Linear-Lab" width="300" height="300"/>
 </div>
 
-
-**Welcome to a comprehensive toolkit that elevates linear regression to new heights of sophistication.** This repository offers a meticulously crafted platform, blending fundamental linear regression principles with advanced MLOps techniques.
+**Welcome to a comprehensive toolkit (🏗️🔧 *under construction* 👷‍♂️🧰 ) that elevates linear regression to new heights of sophistication.** This repository offers a meticulously crafted platform, blending fundamental linear regression principles with advanced MLOps techniques.
 
 Collaboratively developed with contributions from **CodeLlama & ChatGPT-4**, this toolkit stands as a testament to the finesse achievable in the realm of machine learning.
 
