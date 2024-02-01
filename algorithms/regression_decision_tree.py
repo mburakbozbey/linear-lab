@@ -5,6 +5,25 @@ import random
 
 # Define a TreeNode class for the decision tree
 class TreeNode:
+    """
+    Initialize a node in the decision tree.
+
+    Parameters:
+    - value: float, optional
+        The predicted value if it's a leaf node.
+    - split_feature: int, optional
+        The feature used for splitting.
+    - threshold: float, optional
+        Threshold value for splitting.
+    - left: TreeNode, optional
+        Left subtree.
+    - right: TreeNode, optional
+        Right subtree.
+
+    Returns:
+    - None
+    """
+
     def __init__(
         self, value=None, split_feature=None, threshold=None, left=None, right=None
     ):
@@ -15,8 +34,18 @@ class TreeNode:
         self.right = right  # Right subtree
 
 
-# Define the DecisionTreeRegressor class
 class DecisionTreeRegressor:
+    """
+    Decision tree regressor.
+
+    Parameters:
+    - max_depth: int, optional
+        The maximum depth of the decision tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
+
+    Returns:
+    - None
+    """
+
     def __init__(self, max_depth=None):
         self.max_depth = max_depth  # Maximum depth of the tree
         self.root = None  # The root node of the decision tree

@@ -2,22 +2,14 @@ import time
 
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 from sklearn.datasets import fetch_california_housing
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 
-from config.config import Config  # Import the configuration
 from utils.preprocess import preprocess_data
 
-# Constants from config.py
-config = Config()
-LEARNING_RATE = config.LEARNING_RATE
-NUM_ITERATIONS = config.NUM_ITERATIONS
-TEST_SIZE = config.TEST_SIZE
 
-
-# Updated LinearRegression class with bias term
 class LinearRegression:
     def __init__(self, learning_rate=0.01, num_iterations=1000):
         self.learning_rate = learning_rate
@@ -26,6 +18,16 @@ class LinearRegression:
         self.cost_history = []
 
     def fit(self, X, y):
+        """
+        Fit the model to the training data.
+
+        Parameters:
+            X (array-like): The input data.
+            y (array-like): The target values.
+
+        Returns:
+            None
+        """
         num_samples, num_features = X.shape
         self.weights = np.zeros(num_features)
 
@@ -40,35 +42,32 @@ class LinearRegression:
         return np.dot(X, self.weights)
 
 
-def plot_data_and_regression(X, y, predictions, model):
+import plotly.graph_objects as go
+
+
+def plot_data_and_regression(X, y, predictions):
     """Plot data and regression line using Plotly.
 
     Parameters:
         X (ndarray): Input features.
         y (ndarray): Target values.
         predictions (ndarray): Predicted values.
-        model (LinearRegressionWithBias): Trained model for accessing cost history.
     """
-    import plotly.graph_objects as go
 
     fig = go.Figure()
 
-    # Add actual data points
-    fig.add_trace(go.Scatter(x=X[:, 1], y=y, mode="markers", name="Actual Data"))
-
-    # Sort the data by X[:, 1] for plotting the regression line
+    # Sort the data by X for plotting the actual data points and regression line
     sorted_indices = X[:, 1].argsort()
-    sorted_x = X[sorted_indices]
-    sorted_predictions = predictions[sorted_indices]
+    X = X[sorted_indices]
+    y = y[sorted_indices]
+    predictions = predictions[sorted_indices]
+
+    # Add actual data points
+    fig.add_trace(go.Scatter(x=X[:, 1], y=y, mode="markers", name="Actuals"))
 
     # Add regression line
     fig.add_trace(
-        go.Scatter(
-            x=sorted_x[:, 1],
-            y=sorted_predictions,
-            mode="lines",
-            name="Linear Regression Line",
-        )
+        go.Scatter(x=X[:, 1], y=predictions, mode="markers", name="Predictions")
     )
 
     fig.update_layout(
@@ -82,6 +81,11 @@ def plot_data_and_regression(X, y, predictions, model):
 
 
 def run_linear_regression_california():
+    """
+    Run linear regression on the California housing dataset.
+
+    This function loads the California housing dataset, preprocesses the data, adds a bias term, splits the data into training and testing sets, creates and trains a linear regression model with bias, makes predictions on the test set, calculates evaluation metrics, and plots the linear regression line and data points.
+    """
     # Load the California housing dataset
     california_housing = fetch_california_housing()
     X, y = california_housing.data, california_housing.target
@@ -94,11 +98,11 @@ def run_linear_regression_california():
 
     # Split data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
-        X_with_bias, y, test_size=TEST_SIZE, random_state=42
+        X_with_bias, y, test_size=test_size, random_state=42
     )
 
     # Create and train the linear regression model with bias
-    model = LinearRegression(learning_rate=LEARNING_RATE, num_iterations=NUM_ITERATIONS)
+    model = LinearRegression(learning_rate=learning_rate, num_iterations=num_iterations)
     model.fit(X_train, y_train)
 
     # Make predictions on the test set
