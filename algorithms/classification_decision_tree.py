@@ -1,15 +1,19 @@
-import os
 import csv
+import os
 import random
+
 
 # Define a TreeNode class for the decision tree
 class TreeNode:
-    def __init__(self, data_class=None, split_feature=None, threshold=None, left=None, right=None):
+    def __init__(
+        self, data_class=None, split_feature=None, threshold=None, left=None, right=None
+    ):
         self.data_class = data_class  # The class label if it's a leaf node
         self.split_feature = split_feature  # The feature used for splitting
         self.threshold = threshold  # Threshold value for splitting
         self.left = left  # Left subtree
         self.right = right  # Right subtree
+
 
 # Define the DecisionTreeClassifier class
 class DecisionTreeClassifier:
@@ -26,7 +30,7 @@ class DecisionTreeClassifier:
         num_features = len(X[0])
         best_split_feature = None
         best_threshold = None
-        best_gini = float('inf')
+        best_gini = float("inf")
 
         for feature in range(num_features):
             values = list(set(X[i][feature] for i in range(len(X))))
@@ -44,22 +48,44 @@ class DecisionTreeClassifier:
                     best_left_indices = left_indices
                     best_right_indices = right_indices
 
-        if best_gini == float('inf'):
+        if best_gini == float("inf"):
             # No suitable split found, create a leaf node
             data_class = max(set(y), key=y.count)
             return TreeNode(data_class=data_class)
 
         # Recursively build left and right subtrees
-        left_subtree = self.fit([X[i] for i in best_left_indices], [y[i] for i in best_left_indices], depth + 1)
-        right_subtree = self.fit([X[i] for i in best_right_indices], [y[i] for i in best_right_indices], depth + 1)
+        left_subtree = self.fit(
+            [X[i] for i in best_left_indices],
+            [y[i] for i in best_left_indices],
+            depth + 1,
+        )
+        right_subtree = self.fit(
+            [X[i] for i in best_right_indices],
+            [y[i] for i in best_right_indices],
+            depth + 1,
+        )
 
-        return TreeNode(split_feature=best_split_feature, threshold=best_threshold, left=left_subtree, right=right_subtree)
+        return TreeNode(
+            split_feature=best_split_feature,
+            threshold=best_threshold,
+            left=left_subtree,
+            right=right_subtree,
+        )
 
     def calculate_gini(self, left_labels, right_labels):
         total_count = len(left_labels) + len(right_labels)
-        gini_left = 1.0 - sum([(left_labels.count(c) / len(left_labels)) ** 2 for c in set(left_labels)])
-        gini_right = 1.0 - sum([(right_labels.count(c) / len(right_labels)) ** 2 for c in set(right_labels)])
-        gini = (len(left_labels) / total_count) * gini_left + (len(right_labels) / total_count) * gini_right
+        gini_left = 1.0 - sum(
+            [(left_labels.count(c) / len(left_labels)) ** 2 for c in set(left_labels)]
+        )
+        gini_right = 1.0 - sum(
+            [
+                (right_labels.count(c) / len(right_labels)) ** 2
+                for c in set(right_labels)
+            ]
+        )
+        gini = (len(left_labels) / total_count) * gini_left + (
+            len(right_labels) / total_count
+        ) * gini_right
         return gini
 
     def predict(self, X):
@@ -76,16 +102,18 @@ class DecisionTreeClassifier:
         else:
             return self.predict_single(sample, node.right)
 
+
 # Load data from the CSV file in the "data" folder
 def load_data_from_csv(file_path):
     X = []
     y = []
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         reader = csv.reader(file)
         for row in reader:
             X.append([float(val) for val in row[:-1]])
             y.append(int(row[-1]))
     return X, y
+
 
 # Define the main function
 def main():
@@ -114,8 +142,11 @@ def main():
     predictions = classifier.predict(X_test)
 
     # Calculate accuracy
-    accuracy = sum(1 for p, true_label in zip(predictions, y_test) if p == true_label) / len(y_test)
+    accuracy = sum(
+        1 for p, true_label in zip(predictions, y_test) if p == true_label
+    ) / len(y_test)
     print(f"Accuracy: {accuracy * 100:.2f}%")
+
 
 if __name__ == "__main__":
     main()

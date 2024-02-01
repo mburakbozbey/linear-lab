@@ -1,12 +1,14 @@
 import time
+
 import numpy as np
 import plotly.express as px
 from sklearn.datasets import fetch_california_housing
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from utils.preprocess import preprocess_data
+
 from config.config import Config  # Import the configuration
+from utils.preprocess import preprocess_data
 
 # Constants from config.py
 config = Config()
@@ -37,6 +39,7 @@ class LinearRegression:
     def predict(self, X):
         return np.dot(X, self.weights)
 
+
 def plot_data_and_regression(X, y, predictions, model):
     """Plot data and regression line using Plotly.
 
@@ -51,7 +54,7 @@ def plot_data_and_regression(X, y, predictions, model):
     fig = go.Figure()
 
     # Add actual data points
-    fig.add_trace(go.Scatter(x=X[:, 1], y=y, mode='markers', name='Actual Data'))
+    fig.add_trace(go.Scatter(x=X[:, 1], y=y, mode="markers", name="Actual Data"))
 
     # Sort the data by X[:, 1] for plotting the regression line
     sorted_indices = X[:, 1].argsort()
@@ -59,12 +62,21 @@ def plot_data_and_regression(X, y, predictions, model):
     sorted_predictions = predictions[sorted_indices]
 
     # Add regression line
-    fig.add_trace(go.Scatter(x=sorted_x[:, 1], y=sorted_predictions, mode='lines', name='Linear Regression Line'))
+    fig.add_trace(
+        go.Scatter(
+            x=sorted_x[:, 1],
+            y=sorted_predictions,
+            mode="lines",
+            name="Linear Regression Line",
+        )
+    )
 
-    fig.update_layout(title='Linear Regression',
-                      xaxis_title='X',
-                      yaxis_title='y',
-                      legend=dict(x=0, y=1, bordercolor="Black", borderwidth=2))
+    fig.update_layout(
+        title="Linear Regression",
+        xaxis_title="X",
+        yaxis_title="y",
+        legend=dict(x=0, y=1, bordercolor="Black", borderwidth=2),
+    )
 
     fig.show()
 
@@ -81,7 +93,9 @@ def run_linear_regression_california():
     X_with_bias = np.c_[np.ones((X_scaled.shape[0], 1)), X_scaled]
 
     # Split data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X_with_bias, y, test_size=TEST_SIZE, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_with_bias, y, test_size=TEST_SIZE, random_state=42
+    )
 
     # Create and train the linear regression model with bias
     model = LinearRegression(learning_rate=LEARNING_RATE, num_iterations=NUM_ITERATIONS)
@@ -99,6 +113,7 @@ def run_linear_regression_california():
 
     print("Mean Squared Error: {:.2f}".format(mse))
     print("R-squared: {:.2f}".format(r2))
+
 
 if __name__ == "__main__":
     start_time = time.time()

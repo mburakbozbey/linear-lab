@@ -1,15 +1,19 @@
-import os
 import csv
+import os
 import random
+
 
 # Define a TreeNode class for the decision tree
 class TreeNode:
-    def __init__(self, value=None, split_feature=None, threshold=None, left=None, right=None):
+    def __init__(
+        self, value=None, split_feature=None, threshold=None, left=None, right=None
+    ):
         self.value = value  # The predicted value if it's a leaf node
         self.split_feature = split_feature  # The feature used for splitting
         self.threshold = threshold  # Threshold value for splitting
         self.left = left  # Left subtree
         self.right = right  # Right subtree
+
 
 # Define the DecisionTreeRegressor class
 class DecisionTreeRegressor:
@@ -26,7 +30,7 @@ class DecisionTreeRegressor:
         num_features = len(X[0])
         best_split_feature = None
         best_threshold = None
-        best_mse = float('inf')
+        best_mse = float("inf")
 
         for feature in range(num_features):
             values = list(set(X[i][feature] for i in range(len(X))))
@@ -44,21 +48,40 @@ class DecisionTreeRegressor:
                     best_left_indices = left_indices
                     best_right_indices = right_indices
 
-        if best_mse == float('inf'):
+        if best_mse == float("inf"):
             # No suitable split found, create a leaf node
             value = sum(y) / len(y)
             return TreeNode(value=value)
 
         # Recursively build left and right subtrees
-        left_subtree = self.fit([X[i] for i in best_left_indices], [y[i] for i in best_left_indices], depth + 1)
-        right_subtree = self.fit([X[i] for i in best_right_indices], [y[i] for i in best_right_indices], depth + 1)
+        left_subtree = self.fit(
+            [X[i] for i in best_left_indices],
+            [y[i] for i in best_left_indices],
+            depth + 1,
+        )
+        right_subtree = self.fit(
+            [X[i] for i in best_right_indices],
+            [y[i] for i in best_right_indices],
+            depth + 1,
+        )
 
-        return TreeNode(split_feature=best_split_feature, threshold=best_threshold, left=left_subtree, right=right_subtree)
+        return TreeNode(
+            split_feature=best_split_feature,
+            threshold=best_threshold,
+            left=left_subtree,
+            right=right_subtree,
+        )
 
     def calculate_mse(self, left_values, right_values):
-        mse_left = sum([(val - sum(left_values) / len(left_values)) ** 2 for val in left_values]) / len(left_values)
-        mse_right = sum([(val - sum(right_values) / len(right_values)) ** 2 for val in right_values]) / len(right_values)
-        mse = (len(left_values) / (len(left_values) + len(right_values))) * mse_left + (len(right_values) / (len(left_values) + len(right_values))) * mse_right
+        mse_left = sum(
+            [(val - sum(left_values) / len(left_values)) ** 2 for val in left_values]
+        ) / len(left_values)
+        mse_right = sum(
+            [(val - sum(right_values) / len(right_values)) ** 2 for val in right_values]
+        ) / len(right_values)
+        mse = (len(left_values) / (len(left_values) + len(right_values))) * mse_left + (
+            len(right_values) / (len(left_values) + len(right_values))
+        ) * mse_right
         return mse
 
     def predict(self, X):
@@ -75,16 +98,18 @@ class DecisionTreeRegressor:
         else:
             return self.predict_single(sample, node.right)
 
+
 # Load data from the CSV file in the "data" folder
 def load_data_from_csv(file_path):
     X = []
     y = []
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         reader = csv.reader(file)
         for row in reader:
             X.append([float(val) for val in row[:-1]])
             y.append(float(row[-1]))
     return X, y
+
 
 # Define the main function
 def main():
@@ -113,8 +138,11 @@ def main():
     predictions = regressor.predict(X_test)
 
     # Calculate Mean Squared Error (MSE)
-    mse = sum((p - true_val) ** 2 for p, true_val in zip(predictions, y_test)) / len(y_test)
+    mse = sum((p - true_val) ** 2 for p, true_val in zip(predictions, y_test)) / len(
+        y_test
+    )
     print(f"Mean Squared Error: {mse:.2f}")
+
 
 if __name__ == "__main__":
     main()

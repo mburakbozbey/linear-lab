@@ -1,12 +1,16 @@
+import random
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import numpy as np
-import random
+
 
 # Define your GPT-like model class
 class GPTModel(nn.Module):
-    def __init__(self, vocab_size, embedding_dim, hidden_dim, num_layers, block_size, dropout=0.1):
+    def __init__(
+        self, vocab_size, embedding_dim, hidden_dim, num_layers, block_size, dropout=0.1
+    ):
         super(GPTModel, self).__init__()
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         self.transformer = nn.Transformer(
@@ -15,7 +19,7 @@ class GPTModel(nn.Module):
             num_encoder_layers=num_layers,
             num_decoder_layers=num_layers,
             dim_feedforward=hidden_dim,
-            dropout=dropout
+            dropout=dropout,
         )
         self.fc = nn.Linear(embedding_dim, vocab_size)
 
@@ -24,6 +28,7 @@ class GPTModel(nn.Module):
         output = self.transformer(embedded)
         logits = self.fc(output)
         return logits
+
 
 # Define a function to train the model
 def train_model(model, dataloader, num_epochs, criterion, optimizer, device):
@@ -38,11 +43,12 @@ def train_model(model, dataloader, num_epochs, criterion, optimizer, device):
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
-        
+
         epoch_loss = running_loss / len(dataloader)
         print(f"Epoch [{epoch+1}/{num_epochs}] Loss: {epoch_loss:.4f}")
-    
+
     print("Training finished!")
+
 
 # Define a function to generate text from the trained model
 def generate_text(model, start_text, max_length, temperature=1.0):
@@ -56,9 +62,10 @@ def generate_text(model, start_text, max_length, temperature=1.0):
             predicted_token = torch.multinomial(torch.softmax(output_logits, dim=-1), 1)
             predicted_char = idx_to_char[predicted_token.item()]
             input_ids.append(predicted_token.item())
-            if predicted_char == '\n':
+            if predicted_char == "\n":
                 break
-    return ''.join([idx_to_char[idx] for idx in input_ids])
+    return "".join([idx_to_char[idx] for idx in input_ids])
+
 
 # Set random seed for reproducibility
 seed = 42
