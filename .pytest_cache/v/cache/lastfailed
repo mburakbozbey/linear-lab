@@ -1,0 +1,10 @@
+{
+  "tests/test_linear_regression.py::test_linear_regression_model": true,
+  "tests/test_linear_regression.py::test_fit": true,
+  "tests/test_linear_regression.py::test_predict": true,
+  "tests/test_main.py::test_run_experiment": true,
+  "tests/test_linear_regression.py::test_model_fit": true,
+  "tests/test_linear_regression.py::test_model_predict": true,
+  "tests/test_linear_regression.py::test_plot_data_and_regression": true,
+  "tests/test_linear_regression.py": true
+}
