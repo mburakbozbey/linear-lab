@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the contents of the repository into the container.
 COPY . .
 
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH /app
+
 # Install the required packages using pip from the requirements.txt file.
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -17,4 +20,4 @@ RUN pip install --no-cache-dir torch==1.8.0+cpu -f https://download.pytorch.org/
 RUN pwd
 
 # Run the tests when the container launches.
-CMD ["pytest", "tests/"]
+CMD ["pytest", "tests/"]g
