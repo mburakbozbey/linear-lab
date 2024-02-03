@@ -30,9 +30,9 @@ jobs:
         context: .
         file: ./Dockerfile
         push: false
-        tags: my-image-name:${{ github.run_number }}
+        tags: my-image-name:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
 
     - name: Run tests in Docker container
-      run: docker run my-image-name:${{ github.run_number }}
+      run: docker run my-image-name:latest
