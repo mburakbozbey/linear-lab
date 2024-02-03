@@ -17,22 +17,28 @@ class ChatPDF:
     chain = None
 
     def __init__(self):
+        """
+        Initialize the ChatPDF class.
+        """
         self.model = ChatOllama(model="mistral")
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1024, chunk_overlap=100
         )
         self.prompt = PromptTemplate.from_template(
             """
-            <s> [INST] You are an assistant for question-answering tasks. Use the following pieces of retrieved context 
+            <s> [INST] You are an assistant for question-answering tasks. Use the following pieces of retrieved context
             to answer the question. If you don't know the answer, just say that you don't know. Use three sentences
-             maximum and keep the answer concise. [/INST] </s> 
-            [INST] Question: {question} 
-            Context: {context} 
+            maximum and keep the answer concise. [/INST] </s>
+            [INST] Question: {question}
+            Context: {context}
             Answer: [/INST]
             """
         )
 
     def ingest(self, pdf_file_path: str):
+        """
+        Ingest a PDF document and process it.
+        """
         docs = PyPDFLoader(file_path=pdf_file_path).load()
         chunks = self.text_splitter.split_documents(docs)
         chunks = filter_complex_metadata(chunks)
@@ -50,18 +56,24 @@ class ChatPDF:
 
         self.chain = (
             {"context": self.retriever, "question": RunnablePassthrough()}
-            | self.prompt
-            | self.model
-            | StrOutputParser()
+            >> self.prompt
+            >> self.model
+            >> StrOutputParser()
         )
 
     def ask(self, query: str):
+        """
+        Ask a question to the ChatPDF model.
+        """
         if not self.chain:
             return "Please, add a PDF document first."
 
         return self.chain.invoke(query)
 
     def clear(self):
+        """
+        Clear the ChatPDF model.
+        """
         self.vector_store = None
         self.retriever = None
         self.chain = None
