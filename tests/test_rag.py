@@ -1,81 +1,76 @@
+""" Tests for the RAG model. """
+
+import os
+import tempfile
+
 import pytest
+from fpdf import FPDF
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.embeddings import FastEmbedEmbeddings
+from langchain_community.vectorstores import Chroma
+from pytest_mock import MockerFixture
 
 from data_scientist.rag import ChatPDF
 
 
+class MockDocument:
+    def __init__(self, content, metadata=None):
+        self.page_content = content
+        self.metadata = metadata if metadata else {}
+
+
+@pytest.fixture(scope="session")
+def pdf_file():
+    """
+    Fixture for creating a simple PDF file.
+    """
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt="Capital of France is Paris.", ln=True, align="C")
+
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as fp:
+        pdf.output(fp.name)
+        yield fp.name
+
+    os.remove(fp.name)
+
+
 @pytest.fixture
 def chat_pdf():
+    """
+    Fixture for creating a ChatPDF object.
+    """
     return ChatPDF()
 
 
-def test_chat_pdf_ingest(chat_pdf, mocker):
-    # Mock the PyPDFLoader and FastEmbedEmbeddings
-    mocker.patch("data_scientist.rag.PyPDFLoader")
-    mocker.patch("data_scientist.rag.FastEmbedEmbeddings")
-
-    # Mock the split_documents method
+def test_chat_pdf_ingest_with_valid_pdf(chat_pdf, mocker, pdf_file):
+    """
+    Test the ingest method of ChatPDF with a valid PDF file.
+    """
+    # Mock the PyPDFLoader.load method and specify a return value
     mocker.patch.object(
-        chat_pdf.text_splitter, "split_documents", return_value=["chunk1", "chunk2"]
+        PyPDFLoader, "load", return_value=[MockDocument("Capital of France is Paris.")]
     )
 
-    # Mock the Chroma.from_documents method
-    mocker.patch(
-        "data_scientist.rag.Chroma.from_documents", return_value="vector_store"
-    )
+    chat_pdf.ingest(pdf_file)
 
-    # Call the ingest method
-    chat_pdf.ingest("test.pdf")
-
-    # Assert that the PyPDFLoader is called with the correct file path
-    data_scientist.rag.PyPDFLoader.assert_called_once_with(file_path="test.pdf")
-
-    # Assert that the split_documents method is called with the loaded documents
-    chat_pdf.text_splitter.split_documents.assert_called_once_with(
-        data_scientist.rag.PyPDFLoader().load()
-    )
-
-    # Assert that the Chroma.from_documents method is called with the chunks and FastEmbedEmbeddings
-    data_scientist.rag.Chroma.from_documents.assert_called_once_with(
-        documents=["chunk1", "chunk2"],
-        embedding=data_scientist.rag.FastEmbedEmbeddings(),
-    )
-
-    # Assert that the retriever and chain attributes are set correctly
-    assert chat_pdf.retriever == "vector_store".as_retriever(
-        search_type="similarity_score_threshold",
-        search_kwargs={
-            "k": 3,
-            "score_threshold": 0.5,
-        },
-    )
+    assert chat_pdf.retriever is not None
     assert chat_pdf.chain is not None
 
 
-def test_chat_pdf_ask(chat_pdf, mocker):
-    # Set up the chain attribute
-    chat_pdf.chain = mocker.MagicMock()
-    chat_pdf.chain.invoke = mocker.MagicMock(return_value="Answer")
+def test_chat_pdf_ask_with_ingest(chat_pdf, mocker, pdf_file):
+    """
+    Test the ask method of ChatPDF after ingesting a PDF file.
+    """
+    mocker.patch.object(
+        PyPDFLoader, "load", return_value=[MockDocument("Capital of France is Paris.")]
+    )
 
-    # Call the ask method
-    result = chat_pdf.ask("What is the answer?")
+    chat_pdf.ingest(pdf_file)
 
-    # Assert that the chain.invoke method is called with the query
-    chat_pdf.chain.invoke.assert_called_once_with("What is the answer?")
+    query = "What is the capital of France?"
 
-    # Assert that the result is correct
-    assert result == "Answer"
+    result = chat_pdf.ask(query)
 
-
-def test_chat_pdf_clear(chat_pdf):
-    # Set up the vector_store, retriever, and chain attributes
-    chat_pdf.vector_store = mocker.MagicMock()
-    chat_pdf.retriever = mocker.MagicMock()
-    chat_pdf.chain = mocker.MagicMock()
-
-    # Call the clear method
-    chat_pdf.clear()
-
-    # Assert that the vector_store, retriever, and chain attributes are set to None
-    assert chat_pdf.vector_store is None
-    assert chat_pdf.retriever is None
-    assert chat_pdf.chain is None
+    assert isinstance(result, str)

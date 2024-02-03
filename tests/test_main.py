@@ -59,11 +59,11 @@ def test_model_training(california_housing_data):
     return model, x_test, y_test
 
 
-def test_model_prediction():
+def test_model_prediction(california_housing_data):
     """
     Test the model prediction process.
     """
-    model, X_test, y_test = test_model_training()
+    model, X_test, y_test = test_model_training(california_housing_data)
 
     # Make predictions on the test set
     predictions = model.predict(X_test)

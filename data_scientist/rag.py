@@ -1,14 +1,14 @@
 """ RAG model for question answering. """
 
-from langchain.chat_models import ChatOllama
-from langchain.document_loaders import PyPDFLoader
-from langchain.embeddings import FastEmbedEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
 from langchain.vectorstores.utils import filter_complex_metadata
+from langchain_community.chat_models import ChatOllama
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.embeddings import FastEmbedEmbeddings
+from langchain_community.vectorstores import Chroma
 
 
 class ChatPDF:
