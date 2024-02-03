@@ -1,3 +1,4 @@
+# A playground to explore possibilities with GenAI
 
 [![GitHub stars](https://img.shields.io/github/stars/mburakbozbey/ml-optimization-toolkit.svg)](https://github.com/mburakbozbey/ml-toolkit/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/mburakbozbey/ml-optimization-toolkit.svg)](https://github.com/mburakbozbey/ml-toolkit/network)
