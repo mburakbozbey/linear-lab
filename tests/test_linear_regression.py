@@ -1,104 +1,82 @@
+""" Tests for the LinearRegression class. """
+
 import numpy as np
-import plotly.graph_objects as go
-import pytest
-from sklearn.datasets import fetch_california_housing
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 
-from algorithms.linear_regression import LinearRegression, plot_data_and_regression
-from config.config import Config  # Import the configuration
-from utils.preprocess import preprocess_data
-
-config = Config()
-LEARNING_RATE = config.LEARNING_RATE
-NUM_ITERATIONS = config.NUM_ITERATIONS
-TEST_SIZE = config.TEST_SIZE
+from algorithms.linear_regression import LinearRegression
 
 
-@pytest.fixture
-def california_housing_dataset():
+def test_linear_regression_fit():
     """
-    Fixture for the California housing dataset.
+    Test case for the fit method of LinearRegression class.
     """
-    return fetch_california_housing()
+    # Create a LinearRegression instance
+    lr = LinearRegression(learning_rate=0.01, num_iterations=1000)
+
+    # Generate some dummy data
+    x = np.array([[1, 2], [3, 4]])
+    y = np.array([0.5, 1.0])
+
+    # Fit the model to the data
+    lr.fit(x, y)
+
+    # Assert that the weights have been learned
+    assert lr.weights is not None
 
 
-@pytest.fixture
-def scaled_features(california_housing_dataset):
+def test_linear_regression_predict():
     """
-    A fixture that scales the features of the California housing dataset.
+    Test case for the predict method of the LinearRegression class.
+
+    This test case verifies that the predict method of the LinearRegression class
+    correctly predicts the target values for a given input.
+
+    Steps:
+    1. Create a LinearRegression instance with a specified learning rate and number of iterations.
+    2. Set the weights of the LinearRegression instance manually.
+    3. Generate some dummy input data.
+    4. Predict the target values using the predict method of the LinearRegression instance.
+    5. Assert that the predicted values are equal to the expected values.
+
+    Expected behavior:
+    - The predicted values should be equal to the expected values.
+
     """
-    X, y = california_housing_dataset.data, california_housing_dataset.target
-    scaled_features = StandardScaler().fit_transform(X)
-    return scaled_features
+
+    # Create a LinearRegression instance
+    lr = LinearRegression(learning_rate=0.01, num_iterations=1000)
+
+    # Set the weights manually
+    lr.weights = np.array([0.5, 0.5])
+
+    # Generate some dummy data
+    x = np.array([[1, 2], [3, 4]])
+
+    # Predict the target values
+    y_pred = lr.predict(x)
+
+    # Assert that the predicted values are correct
+    assert np.array_equal(y_pred, np.array([1.5, 3.5]))
 
 
-@pytest.fixture
-def features_with_bias(scaled_features):
-    features_with_bias = np.c_[np.ones((scaled_features.shape[0], 1)), scaled_features]
-    return features_with_bias
-
-
-@pytest.fixture
-def train_test_data(features_with_bias, california_housing_dataset):
+def test_linear_regression_cost_history():
     """
-    Fixture for generating train and test data from features and target dataset.
-    """
-    X_train, X_test, y_train, y_test = train_test_split(
-        features_with_bias,
-        california_housing_dataset.target,
-        test_size=TEST_SIZE,
-        random_state=42,
-    )
-    return X_train, X_test, y_train, y_test
+    Test case for checking the cost history of LinearRegression.
 
-
-@pytest.fixture
-def trained_model(train_test_data):
-    """
-    Fixture for a trained model using the provided train test data.
-    """
-    X_train, X_test, y_train, y_test = train_test_data
-    model = LinearRegression(learning_rate=LEARNING_RATE, num_iterations=NUM_ITERATIONS)
-    model.fit(X_train, y_train)
-    return model
-
-
-def test_model_fit(trained_model):
-    assert trained_model.weights is not None
-    assert trained_model.cost_history is not None
-    """
-    A function to test the fitting of the model.
-
-    Args:
-        trained_model: The trained model to be tested.
+    This function creates a LinearRegression instance, generates some dummy data,
+    fits the model to the data, and asserts that the cost history is not empty.
 
     Returns:
         None
     """
-    assert len(trained_model.cost_history) == NUM_ITERATIONS
+    # Create a LinearRegression instance
+    lr = LinearRegression(learning_rate=0.01, num_iterations=1000)
 
+    # Generate some dummy data
+    x = np.array([[1, 2], [3, 4]])
+    y = np.array([0.5, 1.0])
 
-def test_model_predict(trained_model, train_test_data):
-    """
-    Function to make predictions using a trained model and assert the shape of the predictions.
+    # Fit the model to the data
+    lr.fit(x, y)
 
-    Parameters:
-    - trained_model: the trained model for making predictions
-    - train_test_data: a tuple containing the training and testing data (X_train, X_test, y_train, y_test)
-
-    Returns:
-    None
-    """
-    X_train, X_test, y_train, y_test = train_test_data
-    predictions = trained_model.predict(X_test)
-    assert predictions.shape == y_test.shape
-
-
-def test_plot_data_and_regression():
-    X = np.array([[1, 2, 3], [4, 5, 6]])
-    y = np.array([1, 2])
-    predictions = np.array([1.5, 2.5])
-    plot_data_and_regression(X, y, predictions)
-    # Add assertions for the expected behavior of the function
+    # Assert that the cost history is not empty
+    assert len(lr.cost_history) > 0

@@ -12,7 +12,10 @@ model:
     learning_rate: 0.01
     regularization: 'L2'
     regularization_rate: 0.1
-  save_path: 'models/linear_regressor.pkl'
+    batch_size: 32
+    early_stopping: true
+    early_stopping_patience: 10
+  save_path: 'models/linear_regressor_{timestamp}.pkl'
 
 # Model Parameters
 model:

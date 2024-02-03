@@ -1,55 +1,82 @@
-
-import pytest
-from unittest.mock import patch, MagicMock
 import numpy as np
-from main import run_experiment
+import pytest
+from sklearn.datasets import fetch_california_housing
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
 
-# Pytest fixture to mock the configuration file content
+from algorithms.linear_regression import LinearRegression
+from main import preprocess_data
+
+
 @pytest.fixture
-def mock_config_yaml(monkeypatch):
-    config = {
-        'data': {'test_size': 0.2, 'random_state': 42},
-        'preprocessing': {'apply_standard_scaler': True},
-        'model': {'learning_rate': 0.01, 'num_iterations': 1000},
-        'plot': {'title': 'Linear Regression Analysis', 'x_axis_title': 'Median Income', 'y_axis_title': 'Median House Value'}
-    }
-    monkeypatch.setattr('yaml.safe_load', lambda x: config)
+def california_housing_data():
+    """
+    Fixture to load and preprocess the California housing dataset.
+    """
+    # Load the California housing dataset
+    california_housing = fetch_california_housing()
+    X, y = california_housing.data, california_housing.target
 
-# Fixture to mock the fetch_california_housing function
-@pytest.fixture
-def mock_fetch_data(monkeypatch):
-    monkeypatch.setattr('main.fetch_california_housing', lambda: (np.array([[1, 2], [3, 4]]), np.array([0.5, 1.0])))
+    # Preprocess the data using the imported function
+    X_scaled = preprocess_data(X)
 
-# Fixture to mock the train_test_split function
-@pytest.fixture
-def mock_split(monkeypatch):
-    monkeypatch.setattr('main.train_test_split', lambda *args, **kwargs: (np.array([[1, 2]]), np.array([[3, 4]]), np.array([0.5]), np.array([1.0])))
+    # Add bias term
+    X_with_bias = np.c_[np.ones((X_scaled.shape[0], 1)), X_scaled]
 
-# Fixture to mock the LinearRegressionWithBias class
-@pytest.fixture
-def mock_lr(monkeypatch):
-    mock_model_instance = MagicMock()
-    monkeypatch.setattr('main.LinearRegressionWithBias', MagicMock(return_value=mock_model_instance))
-    mock_model_instance.predict.return_value = np.array([1.0])
-    return mock_model_instance
+    return X_with_bias, y
 
-# Fixture to mock the plot_data_and_regression function
-@pytest.fixture
-def mock_plot(monkeypatch):
-    monkeypatch.setattr('main.plot_data_and_regression', MagicMock())
 
-def test_run_experiment(mock_config_yaml, mock_fetch_data, mock_split, mock_lr, mock_plot):
-    # Run the experiment
-    run_experiment('test_config.yaml')
+def test_preprocess_data():
+    """
+    Test the preprocess_data function.
+    """
+    X = np.array([[1, 2, 3], [4, 5, 6]])
+    expected_result = np.array(
+        [[-1.22474487, -0.81649658, -0.40824829], [0.40824829, 1.22474487, 2.04124145]]
+    )
+    assert np.allclose(preprocess_data(X), expected_result)
 
-    # Assert the LinearRegressionWithBias was initialized correctly
-    mock_lr.assert_called_with(learning_rate=0.01, num_iterations=1000)
 
-    # Assert the model was fit with the correct data
-    mock_lr.fit.assert_called_with(np.array([[1, 2]]), np.array([0.5]))
+def test_model_training():
+    """
+    Test the model training process.
+    """
+    X_with_bias, y = california_housing_data()
 
-    # Assert predict was called on the model
-    mock_lr.predict.assert_called_with(np.array([[3, 4]]))
+    # Define the test size
+    test_size = 0.2
 
-    # Assert the plotting function was called
-    mock_plot.assert_called_once()
+    # Split data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_with_bias, y, test_size=test_size, random_state=42
+    )
+
+    # Define the learning rate and number of iterations
+    learning_rate = 0.01
+    num_iterations = 1000
+
+    # Create and train the linear regression model with bias
+    model = LinearRegression(learning_rate=learning_rate, num_iterations=num_iterations)
+    model.fit(X_train, y_train)
+
+    return model, X_test, y_test
+
+
+def test_model_prediction():
+    """
+    Test the model prediction process.
+    """
+    model, X_test, y_test = test_model_training()
+
+    # Make predictions on the test set
+    predictions = model.predict(X_test)
+
+    # Calculate evaluation metrics
+    mse = mean_squared_error(y_test, predictions)
+    r2 = r2_score(y_test, predictions)
+
+    # Assert that the mean squared error is within a certain range
+    assert 0 <= mse <= 100
+
+    # Assert that the R-squared value is within a certain range
+    assert 0 <= r2 <= 1

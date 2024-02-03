@@ -1,32 +1,102 @@
+"""Tests for the config module."""
+
 import pytest
+
 from config.config import Config
-import os
 
-print(os.getcwd())
-# Create a fixture to initialize the Config object
-@pytest.fixture
-def config():
-    return Config('config/params.yaml')
 
-# Test the get_model_params method
-def test_get_model_params(config):
-    model_params = config.get_model_params()
-    assert model_params == {'learning_rate': 0.01, 'num_iterations': 1000}
+@pytest.fixture(name="config")
+def config_fixture():
+    """
+    Returns a Config object initialized with the parameters from "config/params.yaml".
+    """
+    return Config("config/params.yaml")
 
-# Test the get_scaler_params method
-def test_get_scaler_params(config):
-    scaler_params = config.get_scaler_params()
-    assert scaler_params == {'method': 'StandardScaler', 'with_bias': True}
 
-# Test the get_data_split_params method
-def test_get_data_split_params(config):
-    data_split_params = config.get_data_split_params()
-    assert data_split_params == {'test_size': 0.2, 'random_state': 42}
+def test_get_model_learning_rate(config):
+    """
+    Test case for the get_model_learning_rate method of the Config class.
 
-# Test the get_metrics method
-def test_get_metrics(config):
-    metrics = config.get_metrics()
-    assert metrics == ['mean_squared_error', 'r2_score']
+    This test verifies that the get_model_learning_rate method returns
+    the correct learning rate value.s
 
-if __name__ == '__main__':
-    pytest.main(['-v', 'test_config.py'])
+    Args:
+        config: An instance of the Config class.
+
+    Returns:
+        None
+    """
+    learning_rate = config.get_model_learning_rate()
+    assert learning_rate == 0.01
+
+
+def test_get_model_learning_rate_with_default(config):
+    """
+    Test case to verify the behavior of the `get_model_learning_rate` method
+    when a default value is provided.
+
+    Args:
+        config: An instance of the Config class.
+
+    Returns:
+        None
+    """
+    learning_rate = config.get_model_learning_rate(default=0.1)
+    assert learning_rate == 0.01
+
+
+def test_get_model_num_iterations(config):
+    """
+    Test case for the `get_model_num_iterations` method of the `config` object.
+
+    This test verifies that the `get_model_num_iterations` method returns the
+    expected value of 1000.
+
+    Args:
+        config: An instance of the Config class.
+
+    Returns:
+        None
+    """
+    num_iterations = config.get_model_num_iterations()
+    assert num_iterations == 1000
+
+
+def test_get_model_num_iterations_with_default(config):
+    """
+    Test the 'get_model_num_iterations' method with the default value.
+
+    Args:
+        config: The configuration object.
+
+    Returns:
+        None
+    """
+    num_iterations = config.get_model_num_iterations(default=2000)
+    assert num_iterations == 1000
+
+
+def test_get_data_split_test_size(config):
+    """
+    Test case to verify the correctness of the `get_data_split_test_size`
+    method in the `config` object.
+
+    This test checks if the returned test size is equal to 0.2.
+    """
+    test_size = config.get_data_split_test_size()
+    assert test_size == 0.2
+
+
+def test_get_data_split_test_size_with_default(config):
+    """
+    Test case to verify the behavior of the `get_data_split_test_size` method
+    when using the default value.
+
+    Args:
+        config: An instance of the Config class.
+
+    Returns:
+        None
+    """
+    test_size = config.get_data_split_test_size(default=0.3)
+    assert test_size == 0.2

@@ -1,3 +1,5 @@
+""" Main script to run the linear regression experiment. """
+
 import time
 
 import numpy as np
@@ -9,14 +11,16 @@ from algorithms.linear_regression import LinearRegression
 from config.config import Config
 from utils.preprocess import plot_data_and_regression, preprocess_data
 
-# Constants from config.py
-config = Config()
-learning_rate = config.LEARNING_RATE
-num_iterations = config.NUM_ITERATIONS
-test_size = config.TEST_SIZE
+config = Config("config/params.yaml")
+learning_rate = config.get_model_learning_rate()
+num_iterations = config.get_model_num_iterations()
+test_size = config.get_data_split_test_size()
 
 
 def run_experiment():
+    """
+    Run the linear regression experiment.
+    """
     # Load the California housing dataset
     california_housing = fetch_california_housing()
     X, y = california_housing.data, california_housing.target
@@ -46,8 +50,8 @@ def run_experiment():
     # Plot the linear regression line and data points
     plot_data_and_regression(X_test, y_test, predictions)
 
-    print("Mean Squared Error: {:.2f}".format(mse))
-    print("R-squared: {:.2f}".format(r2))
+    print(f"Mean Squared Error: {mse:.2f}")  # Use f-string for string formatting
+    print(f"R-squared: {r2:.2f}")  # Use f-string for string formatting
 
 
 if __name__ == "__main__":
