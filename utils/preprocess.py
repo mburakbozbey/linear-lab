@@ -1,12 +1,11 @@
 """
 Preprocesses the input data by identifying columns with NaN values,
-separating categorical and non-categorical columns,
-handling missing values for categorical columns,
-standardizing the data for non-categorical columns,
+handling missing values for numerical columns,
+standardizing the data for numerical columns,
 and returning the preprocessed data.
 """
 
-import numpy as np  # Add missing import statement
+import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.impute import SimpleImputer
@@ -16,9 +15,8 @@ from sklearn.preprocessing import StandardScaler
 def preprocess_data(x):
     """
     Preprocesses the input data by identifying columns with NaN values,
-    separating categorical and non-categorical columns,
-    handling missing values for categorical columns,
-    standardizing the data for non-categorical columns,
+    handling missing values for numerical columns,
+    standardizing the data for numerical columns,
     and returning the preprocessed data.
 
     Parameters:
@@ -28,32 +26,19 @@ def preprocess_data(x):
     array-like: The preprocessed input data.
     """
     # Step 1: Identify columns with NaN values
-    nan_columns = np.isnan(x).any(axis=0)
+    nan_columns = np.isnan(np.array(x)).any(axis=0)
 
-    # Step 2: Separate categorical and non-categorical columns
-    # (replace with actual categorical column info)
-    categorical_columns = np.array(
-        [False, False, True, False, True]  # Update this to match your actual data
-    )
+    # Step 2: Handle missing values for numerical columns
+    for col_idx, has_nan in enumerate(nan_columns):
+        if has_nan:
+            imputer = SimpleImputer(strategy="mean")
+            x[:, col_idx] = imputer.fit_transform(
+                x[:, col_idx].reshape(-1, 1)
+            ).flatten()
 
-    # Step 3: Handle missing values for categorical columns
-    for col_idx, is_categorical in enumerate(categorical_columns):
-        if nan_columns[col_idx]:
-            if is_categorical:
-                imputer = SimpleImputer(strategy="most_frequent")
-                x[:, col_idx] = imputer.fit_transform(
-                    x[:, col_idx].reshape(-1, 1)
-                ).flatten()
-            else:
-                imputer = SimpleImputer(strategy="mean")
-                x[:, col_idx] = imputer.fit_transform(
-                    x[:, col_idx].reshape(-1, 1)
-                ).flatten()
-
-    # Step 4: Standardize the data for non-categorical columns
-    non_categorical_columns = ~categorical_columns
+    # Step 3: Standardize the data for numerical columns
     scaler = StandardScaler()
-    x[:, non_categorical_columns] = scaler.fit_transform(x[:, non_categorical_columns])
+    x = scaler.fit_transform(x)
 
     return x
 

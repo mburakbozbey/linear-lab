@@ -3,6 +3,7 @@
 import time
 
 import numpy as np
+import pandas as pd
 from sklearn.datasets import fetch_california_housing
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
@@ -23,10 +24,15 @@ def run_experiment():
     """
     # Load the California housing dataset
     california_housing = fetch_california_housing()
-    X, y = california_housing.data, california_housing.target
+    x, y = california_housing.data, california_housing.target
+    x = pd.DataFrame(x)
 
+    # Convert all columns to numeric, replacing non-numeric values with NaN
+    x = x.apply(pd.to_numeric, errors="coerce")
+
+    # Now you can call preprocess_data
+    X_scaled = preprocess_data(x.values)
     # Preprocess the data using the imported function
-    X_scaled = preprocess_data(X)
 
     # Add bias term
     X_with_bias = np.c_[np.ones((X_scaled.shape[0], 1)), X_scaled]

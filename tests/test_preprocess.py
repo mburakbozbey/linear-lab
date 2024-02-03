@@ -45,10 +45,19 @@ def test_plot_data_and_regression_with_predictions():
     plot_data_and_regression(x, y, predictions)
 
 
-def test_preprocess_data():
+def test_preprocess_data(preprocessed_data_fixture):
     """
     Test the preprocess_data function.
     """
+    # Call the fixture to get the preprocessed data
+    preprocessed_data = preprocessed_data_fixture
+
     # Assert the output
-    expected_output = np.array([[1, 2, 0], [4, 0, 6], [7, 8, 9]])
-    assert np.array_equal(preprocessed_data_fixture, expected_output)
+    expected_output = np.array(
+        [
+            [-1.22474487, -1.22474487, 0.0],
+            [0.0, 0.0, -1.22474487],
+            [1.22474487, 1.22474487, 1.22474487],
+        ]
+    )
+    assert np.allclose(preprocessed_data, expected_output)
