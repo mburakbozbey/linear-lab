@@ -4,8 +4,9 @@ import os
 import tempfile
 
 import streamlit as st
-from rag import ChatPDF
 from streamlit_chat import message
+
+from .rag import ChatPDF
 
 st.set_page_config(page_title="ChatPDF")
 

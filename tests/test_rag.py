@@ -6,17 +6,23 @@ import tempfile
 import pytest
 from fpdf import FPDF
 from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.embeddings import FastEmbedEmbeddings
-from langchain_community.vectorstores import Chroma
-from pytest_mock import MockerFixture
 
 from data_scientist.rag import ChatPDF
 
 
 class MockDocument:
+    """
+    Mock document class for testing.
+    """
+
     def __init__(self, content, metadata=None):
         self.page_content = content
         self.metadata = metadata if metadata else {}
+
+    def public_method(self):
+        """
+        Public method for testing.
+        """
 
 
 @pytest.fixture(scope="session")
