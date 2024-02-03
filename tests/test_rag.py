@@ -4,6 +4,7 @@ import os
 import tempfile
 
 import pytest
+import requests_mock
 from fpdf import FPDF
 from langchain_community.document_loaders import PyPDFLoader
 
@@ -77,6 +78,8 @@ def test_chat_pdf_ask_with_ingest(chat_pdf, mocker, pdf_file):
 
     query = "What is the capital of France?"
 
-    result = chat_pdf.ask(query)
+    with requests_mock.Mocker() as m:
+        m.get("http://localhost:11434/api/chat/", text="Paris")
+        result = chat_pdf.ask(query)
 
     assert isinstance(result, str)

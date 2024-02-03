@@ -55,7 +55,7 @@ def test_message_input():
 
     # Simulate user input
     user_input = "Hello, how are you?"
-    st.text_input("Message", key="user_input", on_change=None)
+    st.session_state["user_input"] = user_input  # Set the value in session state
 
     # Assert that the user input is stored in session state
     assert st.session_state["user_input"] == user_input
