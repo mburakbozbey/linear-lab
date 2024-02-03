@@ -6,7 +6,7 @@ standardizing the data for non-categorical columns,
 and returning the preprocessed data.
 """
 
-import numpy as np
+import numpy as np  # Add missing import statement
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.impute import SimpleImputer
@@ -33,8 +33,8 @@ def preprocess_data(x):
     # Step 2: Separate categorical and non-categorical columns
     # (replace with actual categorical column info)
     categorical_columns = np.array(
-        [False] * x.shape[1]
-    )  # Replace with actual categorical columns
+        [False, False, True, False, True]  # Update this to match your actual data
+    )
 
     # Step 3: Handle missing values for categorical columns
     for col_idx, is_categorical in enumerate(categorical_columns):

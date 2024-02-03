@@ -1,3 +1,5 @@
+""" Streamlit app for ChatPDF. """
+
 import os
 import tempfile
 
@@ -9,6 +11,9 @@ st.set_page_config(page_title="ChatPDF")
 
 
 def display_messages():
+    """
+    Display the chat messages.
+    """
     st.subheader("Chat")
     for i, (msg, is_user) in enumerate(st.session_state["messages"]):
         message(msg, is_user=is_user, key=str(i))
@@ -16,9 +21,15 @@ def display_messages():
 
 
 def process_input():
-    if st.session_state["user_input"] and len(st.session_state["user_input"].strip()) > 0:
+    """
+    Process the user input and generate a response.
+    """
+    if (
+        st.session_state["user_input"]
+        and len(st.session_state["user_input"].strip()) > 0
+    ):
         user_text = st.session_state["user_input"].strip()
-        with st.session_state["thinking_spinner"], st.spinner(f"Thinking"):
+        with st.session_state["thinking_spinner"], st.spinner("Thinking"):
             agent_text = st.session_state["assistant"].ask(user_text)
 
         st.session_state["messages"].append((user_text, True))
@@ -26,6 +37,9 @@ def process_input():
 
 
 def read_and_save_file():
+    """
+    Read and save the uploaded file.
+    """
     st.session_state["assistant"].clear()
     st.session_state["messages"] = []
     st.session_state["user_input"] = ""
@@ -35,7 +49,9 @@ def read_and_save_file():
             tf.write(file.getbuffer())
             file_path = tf.name
 
-        with st.session_state["ingestion_spinner"], st.spinner(f"Ingesting {file.name}"):
+        with st.session_state["ingestion_spinner"], st.spinner(
+            f"Ingesting {file.name}"
+        ):
             st.session_state["assistant"].ingest(file_path)
         os.remove(file_path)
 

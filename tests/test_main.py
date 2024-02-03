@@ -1,3 +1,5 @@
+""" Tests for the main module. """
+
 import numpy as np
 import pytest
 from sklearn.datasets import fetch_california_housing
@@ -15,20 +17,20 @@ def california_housing_data():
     """
     # Load the California housing dataset
     california_housing = fetch_california_housing()
-    X, y = california_housing.data, california_housing.target
+    data, target = california_housing.data, california_housing.target
 
     # Preprocess the data using the imported function
-    X_scaled = preprocess_data(X)
+    X_scaled = preprocess_data(data)
 
     # Add bias term
     X_with_bias = np.c_[np.ones((X_scaled.shape[0], 1)), X_scaled]
 
-    return X_with_bias, y
+    return X_with_bias, target
 
 
 def test_preprocess_data():
     """
-    Test the preprocess_data function.
+    Test the preprocess_data function
     """
     X = np.array([[1, 2, 3], [4, 5, 6]])
     expected_result = np.array(
@@ -41,7 +43,7 @@ def test_model_training():
     """
     Test the model training process.
     """
-    X_with_bias, y = california_housing_data()
+    X_with_bias, y = california_housing_data
 
     # Define the test size
     test_size = 0.2

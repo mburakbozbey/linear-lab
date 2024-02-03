@@ -1,3 +1,5 @@
+""" RAG model for question answering. """
+
 from langchain.chat_models import ChatOllama
 from langchain.document_loaders import PyPDFLoader
 from langchain.embeddings import FastEmbedEmbeddings
