@@ -10,7 +10,10 @@
   <img src="images/linearlab.png" alt="Linear-Lab" width="250" height="250"/>
 </div>
 
-Welcome to a toolkit that combines linear regression with advanced MLOps & GenAI techniques. This repository is currently under construction. Collaboratively developed with contributions from Codeium, CodeLlama, ChatGPT-4, and GitHub Copilot.
+Welcome to a toolkit that combines linear regression with advanced MLOps & GenAI techniques. This repository is currently under construction as we explore the solution space. It is being collaboratively developed with contributions from Codeium, CodeLlama via Ollama, ChatGPT-4, and GitHub Copilot. We are primarily focused on the following questions:
+1. How can LLMs be used to interpret model results?
+2. How can we implement MLOps?
+3. How can we optimize this pipeline to eliminate external API dependencies and run entirely locally?
 
 ## Repository Structure 📂
 - `data/`: Datasets and preprocessing scripts.

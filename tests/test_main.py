@@ -41,8 +41,8 @@ def test_model_training(california_housing_data):
     x_with_bias, y = california_housing_data
 
     # Define the test size
-    test_size = 0.2s
-s
+    test_size = 0.2
+
     # Split data into training and testing sets
     x_train, x_test, y_train, y_test = train_test_split(
         x_with_bias, y, test_size=test_size, random_state=42
