@@ -9,6 +9,11 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    container:
+      image: docker-registry-url/linear-lab:latest
+      credentials:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     steps:
     - uses: actions/checkout@v3
@@ -30,9 +35,9 @@ jobs:
         context: .
         file: ./Dockerfile
         push: false
-        tags: linear-lab:latest
+        tags: docker-registry-url/linear-lab:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
 
     - name: Run tests in Docker container
-      run: docker run linear-lab:latest
+      run: docker run docker-registry-url/linear-lab:latest
