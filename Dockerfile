@@ -5,10 +5,10 @@ FROM python:3.8.18
 WORKDIR /app
 
 # Copy the contents of the repository into the container.
-COPY . .
+COPY . /app
 
 # Set the PYTHONPATH environment variable
-ENV PYTHONPATH /app
+ENV PYTHONPATH=/app
 
 # Install the required packages using pip from the requirements.txt file.
 RUN pip install --no-cache-dir -r requirements.txt
