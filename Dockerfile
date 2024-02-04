@@ -20,4 +20,4 @@ RUN pip install --no-cache-dir torch==1.8.0+cpu -f https://download.pytorch.org/
 RUN pwd
 
 # Run the tests when the container launches.
-CMD ["pytest", "tests/"]
+CMD ["pytest", "app/tests/"]
