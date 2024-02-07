@@ -14,6 +14,7 @@ Welcome to a toolkit that combines linear regression with advanced MLOps & GenAI
 1. How can LLMs be used to interpret model results?
 2. How can we implement MLOps?
 3. How can we optimize this pipeline to eliminate external API dependencies and run entirely locally?
+4. Can we somehow simulate a team environment with multiple GPTs? e.g. PM-GPT, DS-GPT, DE-GPT in same conversation
 
 ## Repository Structure 📂
 - `data/`: Datasets and preprocessing scripts.
